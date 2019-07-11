@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        .bg {
+            width: 100%;
+            height: 100%;
+            background: url('./role-3.627fd370.jpg') no-repeat ;
+            background-size: cover;
+            opacity: .8;
+        }
+
+        input {
+            display: block;
+            margin: 10px auto;
+          
+
+        }
+
+        input:first-child {
+            height: 30px;
+            border-radius: 15px;
+            outline: none;
+            border: 1px solid;
+            text-indent: 10px;
+            
+        }
+
+
+        input:nth-child(2) {
+
+            height: 60px;
+            width: 120px;
+            /* background-color: aquamarine; */
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background-color: aqua;
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        p {
+            display: block;
+            height: 35px;
+            width: 1400px;
+            margin: 0 auto;
+            line-height: 35px;
+            text-align: center;
+            color: #d9bc72;
+        }
+        span{
+            color: black;
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        p:nth-child(1) {
+            /* background-color: darkcyan; */
+            margin: 50px auto 0;
+        }
+
+        p:nth-child(2) {
+            /* background-color: hotpink; */
+        }
+
+        p:nth-child(3) {
+            /* background-color: skyblue; */
+        }
+
+        p:nth-child(4) {
+            /* background-color: palegreen; */
+        }
+
+        p:nth-child(5) {
+            /* background-color: salmon; */
+        }
+
+        p:nth-child(6) {
+            /* background-color: khaki; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <input type="text" placeholder="qq" id="qq"> <input type="button" value="开始测算" id="btn">
+
+        <div id="res"></div>
+
+    </div>
+
+
+
+
+    <script src="./第3天/02_英雄检索/js/jquery-1.12.4.min.js"></script>
+    <script src="./第3天/02_英雄检索/js/template-web.js"></script>
+
+    <script type="text/html" id="tpl">
+
+        <p><span>QQ号码:</span>{{qq}}</p>
+        <p><span>数理分数:</span>{{ score }}</p>
+        <p><span>吉凶:</span>{{luck}}</p>
+        <p><span>吉凶分析:</span>{{content}}</p>
+        <p><span>主人个性:</span>{{character}}</p>
+        <p><span>具体表现:</span>{{characterdetail}}</p>
+      
+    </script>
+    <script>
+
+        $('#btn').click(function () {
+
+            $.get({
+                url: "https://api.jisuapi.com/qqluck/query",
+
+                data: { appkey: '048ce6ad4a5aec1a', qq: $('#qq').val() },
+                dataType: "jsonp",
+                success: function (res) {
+
+                    console.log(res);
+                    var html = template('tpl', res.result);
+                    $('#res').html(html);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
